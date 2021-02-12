@@ -1,12 +1,9 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+
+import Routes from './src/routes';
 
 const App = () => {
-  return (
-    <View>
-      <Text>Olá, Fluke!</Text>
-    </View>
-  );
+  return <Routes />;
 };
 
 export default App;
