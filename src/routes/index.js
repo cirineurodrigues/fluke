@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import TabNavigator from '../components/TabNavigator';
 
+import LoginScreen from '../pages/LoginScreen';
 import HistoryScreen from '../pages/HistoryScreen';
 import ProfileScreen from '../pages/ProfileScreen';
 
@@ -13,6 +14,7 @@ const Routes = () => {
   return (
     <NavigationContainer initialRouteName="Home" h>
       <Stack.Navigator headerMode="none">
+        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={TabNavigator} />
         <Stack.Screen name="Historico" component={HistoryScreen} />
         <Stack.Screen name="Perfil" component={ProfileScreen} />

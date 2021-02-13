@@ -1,6 +1,7 @@
 import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import HomeScreen from '../../pages/HomeScreen';
 import HistoryScreen from '../../pages/HistoryScreen';
@@ -20,7 +21,7 @@ const TabNavigator = () => {
         options={{
           tabBarLabel: 'Historico',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="person" color={color} size={26} />
+            <MaterialCommunityIcons name="history" color={color} size={26} />
           ),
         }}
       />
@@ -30,7 +31,11 @@ const TabNavigator = () => {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="home-outline"
+              color={color}
+              size={26}
+            />
           ),
         }}
       />
@@ -40,7 +45,7 @@ const TabNavigator = () => {
         options={{
           tabBarLabel: 'Perfil',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="person" color={color} size={26} />
+            <MaterialIcons name="person-outline" color={color} size={26} />
           ),
         }}
       />
