@@ -1,11 +1,10 @@
 import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import HomeScreen from '../../pages/HomeScreen';
 import HistoryScreen from '../../pages/HistoryScreen';
-import ProfileScreen from '../../pages/ProfileScreen';
+import FaqScreen from '../../pages/FaqScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -40,12 +39,16 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Perfil"
-        component={ProfileScreen}
+        name="Faq"
+        component={FaqScreen}
         options={{
-          tabBarLabel: 'Perfil',
+          tabBarLabel: 'FAQ',
           tabBarIcon: ({color}) => (
-            <MaterialIcons name="person-outline" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="comment-question-outline"
+              color={color}
+              size={26}
+            />
           ),
         }}
       />

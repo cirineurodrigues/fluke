@@ -6,18 +6,18 @@ import TabNavigator from '../components/TabNavigator';
 
 import LoginScreen from '../pages/LoginScreen';
 import HistoryScreen from '../pages/HistoryScreen';
-import ProfileScreen from '../pages/ProfileScreen';
+import FaqScreen from '../pages/FaqScreen';
 
 const Stack = createStackNavigator();
 
 const Routes = () => {
   return (
-    <NavigationContainer initialRouteName="Home" h>
+    <NavigationContainer initialRouteName="Home">
       <Stack.Navigator headerMode="none">
-        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={TabNavigator} />
+        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Historico" component={HistoryScreen} />
-        <Stack.Screen name="Perfil" component={ProfileScreen} />
+        <Stack.Screen name="Faq" component={FaqScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

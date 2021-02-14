@@ -8,15 +8,15 @@ const Progress = ({used, total}) => {
       style={styles.circle}
       progress={used / total}
       progressColor={'#fff'}
-      backgroundColor={'#4fe045'}
+      backgroundColor={'#5CC956'}
     />
   );
 };
 
 const styles = StyleSheet.create({
   circle: {
-    width: '80%',
-    height: '80%',
+    width: 220,
+    height: 220,
   },
 });
 

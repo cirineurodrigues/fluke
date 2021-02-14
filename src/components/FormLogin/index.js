@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import BottomModalPassword from '../BottomModalPassword';
 
@@ -17,6 +18,12 @@ const FormLogin = ({navigation}) => {
 
   const openModal = () => {
     modalizeRef.current?.open();
+  };
+
+  const [showPassword, setShowPassword] = useState(true);
+
+  const changeState = () => {
+    return setShowPassword(!showPassword);
   };
 
   return (
@@ -32,12 +39,31 @@ const FormLogin = ({navigation}) => {
           autoCorrect={false}
           onChangeText={() => {}}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="senha"
-          autoCorrect={false}
-          onChangeText={() => {}}
-        />
+        <View style={styles.passwordInput}>
+          <TextInput
+            style={styles.input}
+            placeholder="senha"
+            secureTextEntry={showPassword}
+            keyboardType={'number-pad'}
+            autoCorrect={false}
+            onChangeText={() => {}}
+          />
+          <TouchableOpacity style={styles.iconButton} onPress={changeState}>
+            {showPassword ? (
+              <MaterialCommunityIcons
+                name="eye-off-outline"
+                color={'#b7b7b7'}
+                size={26}
+              />
+            ) : (
+              <MaterialCommunityIcons
+                name="eye-outline"
+                color={'#b7b7b7'}
+                size={26}
+              />
+            )}
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity onPress={openModal}>
           <Text style={styles.password}>esqueceu sua senha?</Text>
         </TouchableOpacity>
@@ -103,6 +129,13 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     borderBottomColor: '#b7b7b7',
     borderBottomWidth: 1,
+  },
+  passwordInput: {
+    width: '100%',
+  },
+  iconButton: {
+    position: 'absolute',
+    right: 20,
   },
   password: {
     fontSize: 20,
