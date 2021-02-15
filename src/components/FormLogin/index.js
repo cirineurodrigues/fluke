@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#6be965',
   },
   buttonText: {
-    fontSize: 25,
+    fontSize: 20,
     letterSpacing: 1,
   },
   formContainer: {

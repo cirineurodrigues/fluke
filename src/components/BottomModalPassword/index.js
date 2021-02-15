@@ -10,7 +10,7 @@ import {Modalize} from 'react-native-modalize';
 
 const BottomModalPassword = ({modalizeRef}) => {
   const closeModal = () => {
-    modalizeRef.current?.close();
+    !modalizeRef.current?.close();
   };
 
   return (
@@ -31,7 +31,9 @@ const BottomModalPassword = ({modalizeRef}) => {
           onChangeText={() => {}}
         />
         <TouchableOpacity style={styles.button}>
-          <Text onPress={closeModal}>enviar</Text>
+          <Text style={styles.buttonText} onPress={closeModal}>
+            enviar
+          </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </Modalize>
@@ -72,6 +74,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 50,
     backgroundColor: '#6be965',
+  },
+  buttonText: {
+    fontSize: 20,
   },
   handleStyle: {
     top: 30,
