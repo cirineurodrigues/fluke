@@ -2,11 +2,11 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import TabNavigator from '../components/TabNavigator';
+import BottomTabNavigator from '../components/BottomTabNavigator';
 
 import LoginScreen from '../pages/LoginScreen';
-import HistoryScreen from '../pages/HistoryScreen';
-import FaqScreen from '../pages/FaqScreen';
+import BuyScreen from '../pages/BuyScreen';
+import HomeScreen from '../pages/HomeScreen';
 
 const Stack = createStackNavigator();
 
@@ -15,9 +15,9 @@ const Routes = () => {
     <NavigationContainer initialRouteName="Login">
       <Stack.Navigator headerMode="none">
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={TabNavigator} />
-        <Stack.Screen name="Historico" component={HistoryScreen} />
-        <Stack.Screen name="Faq" component={FaqScreen} />
+        <Stack.Screen name="Main" component={BottomTabNavigator} />
+        <Stack.Screen name="Buy" component={BuyScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,23 +7,52 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
+import {
+  getEmailThunk,
+  getPackageInfoThunk,
+  getUsageThunk,
+} from '../../store/modules/user/thunk';
+import {useForm} from 'react-hook-form';
+import * as yup from 'yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import BottomModalPassword from '../BottomModalPassword';
 
 import {Container} from './styles';
 
+const schema = yup.object().shape({
+  email: yup.string().email('Email inválido').required('Campo requerido'),
+  password: yup.string().required('Campo requerido'),
+});
+
 const FormLogin = ({navigation}) => {
   const modalizeRef = useRef(null);
+  const [showPassword, setShowPassword] = useState(true);
+  const dispatch = useDispatch();
+
+  const {register, setValue, handleSubmit, errors} = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const openModal = () => {
     modalizeRef.current?.open();
   };
 
-  const [showPassword, setShowPassword] = useState(true);
-
   const changeState = () => {
     return setShowPassword(!showPassword);
+  };
+
+  useEffect(() => {
+    register({name: 'email'});
+    register({name: 'password'});
+  }, [register]);
+
+  const onSubmit = (data) => {
+    dispatch(getEmailThunk(data.email));
+    dispatch(getPackageInfoThunk(data.email, navigation));
+    dispatch(getUsageThunk(data.email, '2020-08-14', '2020-08-21'));
   };
 
   return (
@@ -34,20 +63,22 @@ const FormLogin = ({navigation}) => {
       </View>
       <View style={styles.formContainer}>
         <TextInput
-          style={styles.input}
+          style={[styles.input, errors.email && styles.borderError]}
           placeholder="email"
           autoCorrect={false}
-          onChangeText={() => {}}
+          onChangeText={(value) => setValue('email', value)}
         />
+        <Text style={styles.textError}>{errors.email?.message}</Text>
         <View style={styles.passwordInput}>
           <TextInput
-            style={styles.input}
+            style={[styles.input, errors.password && styles.borderError]}
             placeholder="senha"
             secureTextEntry={showPassword}
             keyboardType={'number-pad'}
             autoCorrect={false}
-            onChangeText={() => {}}
+            onChangeText={(value) => setValue('password', value)}
           />
+          <Text style={styles.textError}>{errors.password?.message}</Text>
           <TouchableOpacity style={styles.iconButton} onPress={changeState}>
             {showPassword ? (
               <MaterialCommunityIcons
@@ -68,11 +99,7 @@ const FormLogin = ({navigation}) => {
           <Text style={styles.password}>esqueceu sua senha?</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          navigation.navigate('Home');
-        }}>
+      <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
         <Text style={styles.buttonText}>entrar</Text>
       </TouchableOpacity>
       <BottomModalPassword modalizeRef={modalizeRef} />
@@ -126,9 +153,19 @@ const styles = StyleSheet.create({
     width: '100%',
     color: '#b7b7b7',
     fontSize: 20,
-    marginBottom: 40,
+    marginBottom: 5,
     borderBottomColor: '#b7b7b7',
     borderBottomWidth: 1,
+  },
+  borderError: {
+    borderBottomColor: '#F00',
+  },
+  textError: {
+    width: '100%',
+    fontWeight: 'bold',
+    marginBottom: 35,
+    color: '#f00',
+    textAlign: 'left',
   },
   passwordInput: {
     width: '100%',

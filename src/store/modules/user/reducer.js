@@ -1,16 +1,17 @@
 import {userTypes} from './actionsType';
 
 const user = {
-  userEmail: '',
+  email: '',
   usage: [],
   packageInformation: {},
+  invoice: [{data: 0, minutes: 0, sms: 0}],
 };
 
 const userReducer = (state = user, action) => {
   switch (action.type) {
     case userTypes.GET_EMAIL:
-      const {userEmail} = action;
-      user.userEmail = userEmail;
+      const {email} = action;
+      user.email = email;
       return state;
 
     case userTypes.GET_USAGE:
@@ -21,6 +22,11 @@ const userReducer = (state = user, action) => {
     case userTypes.GET_PACKAGE_INFO:
       const {packageInformation} = action;
       user.packageInformation = packageInformation;
+      return state;
+
+    case userTypes.GET_INVOICE:
+      const {invoice} = action;
+      user.invoice = [user.invoice, invoice];
       return state;
 
     default:

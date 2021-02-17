@@ -3,12 +3,12 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import HomeScreen from '../../pages/HomeScreen';
-import HistoryScreen from '../../pages/HistoryScreen';
+import TopTabNavigator from '../TopTabNavigator';
 import FaqScreen from '../../pages/FaqScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
-const TabNavigator = () => {
+const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -16,7 +16,7 @@ const TabNavigator = () => {
       barStyle={{backgroundColor: '#fff'}}>
       <Tab.Screen
         name="Historico"
-        component={HistoryScreen}
+        component={TopTabNavigator}
         options={{
           tabBarLabel: 'Historico',
           tabBarIcon: ({color}) => (
@@ -56,4 +56,4 @@ const TabNavigator = () => {
   );
 };
 
-export default TabNavigator;
+export default BottomTabNavigator;

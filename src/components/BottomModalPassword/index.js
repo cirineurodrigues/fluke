@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Text,
   TextInput,
@@ -7,10 +7,30 @@ import {
   StyleSheet,
 } from 'react-native';
 import {Modalize} from 'react-native-modalize';
+import {useForm} from 'react-hook-form';
+import * as yup from 'yup';
+import {yupResolver} from '@hookform/resolvers/yup';
+
+const schema = yup.object().shape({
+  email: yup.string().email('Email inválido').required('Campo requerido'),
+});
 
 const BottomModalPassword = ({modalizeRef}) => {
+  const {register, setValue, handleSubmit, errors} = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  useEffect(() => {
+    register({name: 'email'});
+    register({name: 'password'});
+  }, [register]);
+
   const closeModal = () => {
     !modalizeRef.current?.close();
+  };
+
+  const onSubmit = () => {
+    closeModal;
   };
 
   return (
@@ -25,13 +45,14 @@ const BottomModalPassword = ({modalizeRef}) => {
           enviaremos a recuperação para o seu email
         </Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, errors.email && styles.borderError]}
           placeholder="email"
           autoCorrect={false}
-          onChangeText={() => {}}
+          onChangeText={(value) => setValue('email', value)}
         />
+        <Text style={styles.textError}>{errors.email?.message}</Text>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText} onPress={closeModal}>
+          <Text style={styles.buttonText} onPress={handleSubmit(onSubmit)}>
             enviar
           </Text>
         </TouchableOpacity>
@@ -63,9 +84,20 @@ const styles = StyleSheet.create({
     width: '90%',
     color: '#b7b7b7',
     fontSize: 20,
-    marginBottom: 40,
+    marginBottom: 5,
     borderBottomColor: '#b7b7b7',
     borderBottomWidth: 1,
+  },
+  borderError: {
+    borderBottomColor: '#F00',
+  },
+  textError: {
+    width: '90%',
+    marginLeft: '5%',
+    marginBottom: 35,
+    fontWeight: 'bold',
+    color: '#f00',
+    textAlign: 'left',
   },
   button: {
     width: '60%',

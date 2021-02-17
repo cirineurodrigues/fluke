@@ -14,3 +14,8 @@ export const getPackageInfo = (packageInformation) => ({
   type: userTypes.GET_PACKAGE_INFO,
   packageInformation,
 });
+
+export const getInvoice = (invoice) => ({
+  type: userTypes.GET_INVOICE,
+  invoice,
+});
