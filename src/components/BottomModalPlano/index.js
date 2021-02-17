@@ -16,9 +16,6 @@ const BottomModalPlano = ({navigation}) => {
   let sms = invoice.reduce((acc, cur) => acc + cur.sms, 0);
   let total = (data * 9.98 + minutes * 0.1 + sms * 0.1 + 2).toFixed(2);
 
-  console.log('data:', data);
-  console.log('min', minutes.data);
-
   return (
     <Modalize alwaysOpen={70} handleStyle={styles.handleStyle}>
       <View style={styles.container}>

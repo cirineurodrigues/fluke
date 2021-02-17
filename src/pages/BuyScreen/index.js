@@ -131,8 +131,6 @@ const BuyScreen = ({navigation}) => {
           <TouchableOpacity
             style={styles.buyButton}
             onPress={() => {
-              dispatch(postPurchaseThunk(email, JSON.stringify(dataPayload)));
-              dispatch(getUsageThunk(email, '2020-08-14', '2020-08-21'));
               dispatch(getInvoiceThunk(invoice));
               dispatch(getPackageInfoThunk(email, navigation));
             }}>

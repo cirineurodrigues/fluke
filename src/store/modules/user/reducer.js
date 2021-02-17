@@ -26,7 +26,7 @@ const userReducer = (state = user, action) => {
 
     case userTypes.GET_INVOICE:
       const {invoice} = action;
-      user.invoice = [user.invoice, invoice];
+      user.invoice = [...user.invoice, invoice];
       return state;
 
     default:
