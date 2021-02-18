@@ -1,6 +1,7 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {useSelector} from 'react-redux';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Progress from '../Progress';
 import BottomModalPlano from '../BottomModalPlano';
@@ -8,6 +9,7 @@ import BottomModalPlano from '../BottomModalPlano';
 import {Container, Content} from './styles';
 
 const DataInfo = ({navigation}) => {
+  const [isData, setIsData] = useState(true);
   const info = useSelector((state) => state.user.packageInformation);
   const dataTotal = info.data.subscription + info.data.topup;
   const dataUsed =
@@ -18,19 +20,40 @@ const DataInfo = ({navigation}) => {
 
   return (
     <Container>
-      <Text style={styles.title}>meus dados</Text>
+      <Text style={styles.title}>meus {isData ? 'dados' : 'minutos'}</Text>
       <Content>
         <View style={styles.chart}>
-          <Progress used={dataUsed} total={dataTotal} />
+          <Progress
+            used={isData ? dataUsed : minutesUsed}
+            total={isData ? dataTotal : minutesTotal}
+          />
           <View style={styles.data}>
             <Text style={styles.usage}>
-              {(info.data.available / 1000).toFixed(2)}
-              <Text style={styles.text}>gb</Text>
+              {isData
+                ? (info.data.available / 1000).toFixed(2)
+                : info.minutes.available}
+              <Text style={styles.text}>{isData ? 'gb' : 'min'}</Text>
             </Text>
             <Text style={styles.text}>disponíveis</Text>
           </View>
         </View>
-        <Text style={styles.text}>de {(dataTotal / 1000).toFixed(2)}gb</Text>
+        <Text style={styles.text}>
+          de {isData ? (dataTotal / 1000).toFixed(2) : minutesTotal}{' '}
+          {isData ? 'gb' : 'min'}
+        </Text>
+        <TouchableOpacity
+          style={styles.icon}
+          onPress={() => setIsData(!isData)}>
+          {isData ? (
+            <MaterialCommunityIcons
+              name="swap-vertical"
+              size={40}
+              color="#fff"
+            />
+          ) : (
+            <MaterialCommunityIcons name="phone" size={40} color="#fff" />
+          )}
+        </TouchableOpacity>
       </Content>
       <BottomModalPlano navigation={navigation} />
     </Container>
@@ -57,6 +80,11 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     textAlign: 'center',
+  },
+  icon: {
+    bottom: 25,
+    right: 25,
+    position: 'absolute',
   },
 });
 
