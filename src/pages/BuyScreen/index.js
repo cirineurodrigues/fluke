@@ -6,7 +6,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   postPurchaseThunk,
   getPackageInfoThunk,
-  getUsageThunk,
   getInvoiceThunk,
 } from '../../store/modules/user/thunk';
 
@@ -22,7 +21,7 @@ const BuyScreen = ({navigation}) => {
   const email = useSelector((state) => state.user.email);
 
   const dataPayload = {
-    data,
+    data: data * 1000,
     minutes,
   };
 
@@ -131,8 +130,8 @@ const BuyScreen = ({navigation}) => {
           <TouchableOpacity
             style={styles.buyButton}
             onPress={() => {
+              dispatch(postPurchaseThunk(email, dataPayload, navigation));
               dispatch(getInvoiceThunk(invoice));
-              dispatch(getPackageInfoThunk(email, navigation));
             }}>
             <Text style={styles.buttonText}>comprar</Text>
           </TouchableOpacity>

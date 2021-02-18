@@ -10,8 +10,8 @@ const user = {
 const userReducer = (state = user, action) => {
   switch (action.type) {
     case userTypes.GET_EMAIL:
-      const {email} = action;
-      user.email = email;
+      const {userEmail} = action;
+      user.email = userEmail;
       return state;
 
     case userTypes.GET_USAGE:

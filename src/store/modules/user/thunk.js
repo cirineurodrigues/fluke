@@ -16,7 +16,7 @@ export const getPackageInfoThunk = (email, navigation) => (dispatch) => {
       dispatch(getPackageInfo(res.data));
     })
     .then(() => navigation.navigate('Main'))
-    .catch((e) => console.log(e));
+    .catch((error) => console.log(error));
 };
 
 export const getUsageThunk = (email, startDate, endDate) => (dispatch) => {
@@ -28,15 +28,32 @@ export const getUsageThunk = (email, startDate, endDate) => (dispatch) => {
     })
     .then((res) => {
       dispatch(getUsage(res.data));
-    });
+    })
+    .catch((error) => console.log(error));
 };
 
-export const postPurchaseThunk = (email, data) => {
-  api.post('usage/topupPurchase', data, {
-    headers: {
-      Authorization: email,
-    },
-  });
+export const postPurchaseThunk = (email, data, navigation) => (dispatch) => {
+  api
+    .post('usage/topupPurchase', data, {
+      headers: {
+        Authorization: email,
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(
+      api
+        .get('usage/packageInformation/', {
+          headers: {
+            Authorization: email,
+          },
+        })
+        .then((res) => {
+          dispatch(getPackageInfo(res.data));
+        })
+        .then(() => navigation.navigate('Main'))
+        .catch((error) => console.log(error)),
+    )
+    .catch((error) => console.log(error));
 };
 
 export const getInvoiceThunk = (data) => (dispatch) => {
