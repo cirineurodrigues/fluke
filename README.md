@@ -94,4 +94,4 @@ Nesta tela é possível visualizar as perguntas realizadas com maior frequencia,
 
 # 🖥️ Dev
 
-- Made with ❤️ by [Cirineu Rodrigues - FrontEnd Developer](https://www.linkedin.com/in/cirineurodrigues/)
+- Made with ❤️ by [Cirineu Rodrigues](https://www.linkedin.com/in/cirineurodrigues/)
